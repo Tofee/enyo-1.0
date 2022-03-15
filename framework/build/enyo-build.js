@@ -6421,7 +6421,7 @@ onResult: ""
 components: [ {
 name: "getAppPath",
 kind: "enyo.PalmService",
-service: "palm://com.palm.applicationManager/",
+service: "palm://com.webos.applicationManager/",
 method: "getAppBasePath",
 onResponse: "gotAppInfo"
 } ],

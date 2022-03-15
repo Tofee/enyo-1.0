@@ -16,7 +16,7 @@ enyo.kind({
 		onResult:"" //* Sent when a result is received from the cross-app UI.
 	},
 	components: [
-		{name: "getAppPath", kind: "enyo.PalmService", service: "palm://com.palm.applicationManager/", method: "getAppBasePath", onResponse: "gotAppInfo"}
+		{name: "getAppPath", kind: "enyo.PalmService", service: "palm://com.webos.applicationManager/", method: "getAppBasePath", onResponse: "gotAppInfo"}
 	],
 	className: "enyo-iframe enyo-view",
 	//* @protected
