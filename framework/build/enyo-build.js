@@ -1493,9 +1493,16 @@ type: "text/javascript",
 src: a
 }));
 }, enyo.getCookie = function(a) {
+if(typeof localStorage != "undefined") {
+return localStorage.getItem(a);   
+} else {
 var b = document.cookie.match(new RegExp("(?:^|; )" + a + "=([^;]*)"));
 return b ? decodeURIComponent(b[1]) : undefined;
+}
 }, enyo.setCookie = function(a, b, c) {
+if(typeof localStorage != "undefined") {
+        localStorage.setItem(a, b);
+} else {
 var d = a + "=" + encodeURIComponent(b), e = c || {}, f = e.expires;
 if (typeof f == "number") {
 var g = new Date;
@@ -1505,6 +1512,7 @@ f && f.toUTCString && (e.expires = f.toUTCString());
 var h, i;
 for (h in e) d += "; " + h, i = e[h], i !== !0 && (d += "=" + i);
 document.cookie = d;
+}
 }, enyo.dom = {
 getComputedStyle: function(a) {
 return window.getComputedStyle(a, null);
