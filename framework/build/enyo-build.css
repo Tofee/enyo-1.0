@@ -363,7 +363,7 @@ html, body, input, button {
 /* Preferences Styles */
 
 .enyo-preferences-box {
-	width: 500px;
+	padding: 5px;
 	margin: 23px auto 0;
 }
 
@@ -2626,7 +2626,7 @@ FIXME: we almost always want some padding on a enyo-item, except when it's surro
 /* palm/themes/Onyx/css/FilePicker.css */
 
 .enyo-filepicker {
-	width: 450px;
+	padding: 5px;
 	border-width: 24px;
 	border-style: solid;
 	-webkit-border-image: url(palm/themes/Onyx/images/filepicker.png) 25 stretch stretch;

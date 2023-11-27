@@ -86,7 +86,7 @@ html, body, input, button {
 /* Preferences Styles */
 
 .enyo-preferences-box {
-	width: 500px;
+	padding: 5px;
 	margin: 23px auto 0;
 }
 
