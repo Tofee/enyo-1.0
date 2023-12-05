@@ -2708,7 +2708,9 @@ touchend: function(a) {
 this._send("mouseup", a.changedTouches[0]), this._send("click", a.changedTouches[0]);
 },
 connect: function() {
-document.ontouchstart = enyo.dispatch, document.ontouchmove = enyo.dispatch, document.ontouchend = enyo.dispatch;
+document.addEventListener("touchstart", enyo.dispatch, {passive:false});
+document.addEventListener("touchmove", enyo.dispatch, {passive:false});
+document.addEventListener("touchend", enyo.dispatch, {passive:false});
 }
 }, enyo.iphoneGesture.connect());
 });
