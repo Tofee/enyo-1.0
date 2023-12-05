@@ -2708,7 +2708,10 @@ touchend: function(a) {
 this._send("mouseup", a.changedTouches[0]), this._send("click", a.changedTouches[0]);
 },
 connect: function() {
-document.ontouchstart = enyo.dispatch, document.ontouchmove = enyo.dispatch, document.ontouchend = enyo.dispatch;
+//Disable Chromium intervention on older framework (see: https://developer.chrome.com/blog/scrolling-intervention/)
+document.addEventListener(ontouchstart, enyo.dispatch, {passive:false});
+document.addEventListener(ontouchmove, enyo.dispatch, {passive:false});
+document.addEventListener(ontouchend, enyo.dispatch, {passive:false});
 }
 }, enyo.iphoneGesture.connect());
 });
