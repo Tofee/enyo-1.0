@@ -2727,6 +2727,7 @@ touchend: function(a) {
 this._send("mouseup", a.changedTouches[0]), this._send("click", a.changedTouches[0]);
 },
 connect: function() {
+var options;
 if (enyo.passiveSupported()) options = {passive:false};
 document.addEventListener("touchstart", enyo.dispatch, options);
 document.addEventListener("touchmove", enyo.dispatch, options);
@@ -2750,7 +2751,8 @@ target: enyo.webosGesture.lastDownTarget
 }, b);
 enyo.dispatch(c);
 }, Mojo.screenOrientationChanged = function() {}, enyo.requiresWindow(function() {
-if (enyo.passiveSupported()) options = {passive:false};
+var options;
+if (enyo.passiveSupported()) var options = {passive:false}
 document.addEventListener("touchstart", enyo.dispatch, options), document.addEventListener("touchmove", enyo.dispatch, options), document.addEventListener("touchend", enyo.dispatch, options);
 })), typeof webosEvent == "undefined" && (webosEvent = {
 event: enyo.nop,
