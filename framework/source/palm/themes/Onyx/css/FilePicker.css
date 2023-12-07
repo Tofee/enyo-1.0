@@ -1,5 +1,5 @@
 .enyo-filepicker {
-	width: 450px;
+	padding: 5px;
 	border-width: 24px;
 	border-style: solid;
 	-webkit-border-image: url(../images/filepicker.png) 25 stretch stretch;
