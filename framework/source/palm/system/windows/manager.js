@@ -10,6 +10,12 @@ enyo.windows.manager = {
 	// return a list of valid (still existing) windows.
 	getWindows: function() {
 		var app = this.getRootWindow();
+		if (typeof(app) === "undefined" || 
+		    typeof(app.enyo) === "undefined" || 
+		    typeof(app.enyo.windows) === "undefined" || 
+		    typeof(app.enyo.windows.manager) === "undefined") {
+				return [];
+		}
 		var am = app.enyo.windows.manager;
 		var windows = am._windowList;
 		// note: check for validity of window since we do not know if a spawned
