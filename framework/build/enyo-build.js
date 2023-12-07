@@ -1881,7 +1881,22 @@ return this._animation && this._animation.animating;
 });
 
 // dom/Dispatcher.js
-
+enyo.passiveSupported = function() {
+ passiveSupported = false;
+ try {
+  var options = {
+  get passive() {
+   passiveSupported = true;
+   return false;
+  },
+ };
+ window.addEventListener("test", null, options);
+ window.removeEventListener("test", null, options);
+ } catch (err) {
+  passiveSupported = false;
+ }
+ return passiveSupported;
+};
 enyo.$ = {}, enyo.dispatcher = {
 handlerName: "dispatchDomEvent",
 captureHandlerName: "captureDomEvent",
@@ -1893,7 +1908,11 @@ events: [ "mousedown", "mouseup", "mouseover", "mouseout", "mousemove", "mousewh
 windowEvents: [ "resize", "load", "unload" ],
 connect: function() {
 var a = enyo.dispatcher;
-for (var b = 0, c; c = a.events[b]; b++) document.addEventListener(c, enyo.dispatch, !1);
+for (var b = 0, c; c = a.events[b]; b++) {
+ var options = !1;
+ if (enyo.passiveSupported()) options = { passive:false }
+   document.addEventListener(c, enyo.dispatch, options);
+}
 for (b = 0, c; c = a.windowEvents[b]; b++) window.addEventListener(c, enyo.dispatch, !1);
 },
 findDispatchTarget: function(a) {
@@ -2708,9 +2727,11 @@ touchend: function(a) {
 this._send("mouseup", a.changedTouches[0]), this._send("click", a.changedTouches[0]);
 },
 connect: function() {
-document.addEventListener("touchstart", enyo.dispatch, {passive:false});
-document.addEventListener("touchmove", enyo.dispatch, {passive:false});
-document.addEventListener("touchend", enyo.dispatch, {passive:false});
+var options;
+if (enyo.passiveSupported()) options = {passive:false};
+document.addEventListener("touchstart", enyo.dispatch, options);
+document.addEventListener("touchmove", enyo.dispatch, options);
+document.addEventListener("touchend", enyo.dispatch, options);
 }
 }, enyo.iphoneGesture.connect());
 });
@@ -2730,7 +2751,9 @@ target: enyo.webosGesture.lastDownTarget
 }, b);
 enyo.dispatch(c);
 }, Mojo.screenOrientationChanged = function() {}, enyo.requiresWindow(function() {
-document.addEventListener("touchstart", enyo.dispatch, {passive:false}), document.addEventListener("touchmove", enyo.dispatch, {passive:false}), document.addEventListener("touchend", enyo.dispatch, {passive:false});
+var options;
+if (enyo.passiveSupported()) var options = {passive:false}
+document.addEventListener("touchstart", enyo.dispatch, options), document.addEventListener("touchmove", enyo.dispatch, options), document.addEventListener("touchend", enyo.dispatch, options);
 })), typeof webosEvent == "undefined" && (webosEvent = {
 event: enyo.nop,
 start: enyo.nop,
