@@ -40,7 +40,7 @@ function findDepends(inDir, inStart) {
 	enyo.folders.push(inStart);
 	while(file = enyo.folders.shift()) {
 		absfile = path.resolve(inDir,file);
-		if (path.existsSync(absfile)) {
+		if (fs.existsSync(absfile)) {
 			dep = readSync(absfile);
 			depends.push(file);
 		} else {
@@ -620,7 +620,7 @@ function processDir(sourceDir, callback) {
 						},
 						function() {
 							if (options.delete && !options.inplace) {
-								if (path.existsSync(buildDir)) {
+								if (fs.existsSync(buildDir)) {
 									log.inform("Cleaning up last build");
 									rimraf(buildDir, this);
 								} else {
