@@ -33,9 +33,11 @@ if (window.PalmSystem) {
 	enyo.requiresWindow(function() {
 		// add gesture event suppport
 		// force passive to "false" to let Enyo use preventDefault()
-		document.addEventListener("touchstart", enyo.dispatch, {passive:false});
-		document.addEventListener("touchmove", enyo.dispatch, {passive:false});
-		document.addEventListener("touchend", enyo.dispatch, {passive:false});
+		var options = false;
+		if (enyo.passiveSupported()) options = { passive:false }
+		document.addEventListener("touchstart", enyo.dispatch, options);
+		document.addEventListener("touchmove", enyo.dispatch, options);
+		document.addEventListener("touchend", enyo.dispatch, options);
 	});
 }
 

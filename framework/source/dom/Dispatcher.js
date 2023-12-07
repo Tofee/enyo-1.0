@@ -1,6 +1,23 @@
 //* @protected
 enyo.$ = {};
 
+enyo.passiveSupported = function() {
+ passiveSupported = false;
+ try {
+  var options = {
+  get passive() {
+   passiveSupported = true;
+   return false;
+  },
+ };
+ window.addEventListener("test", null, options);
+ window.removeEventListener("test", null, options);
+ } catch (err) {
+  passiveSupported = false;
+ }
+ return passiveSupported;
+};
+
 //* @public
 enyo.dispatcher = {
 	//* @protected
@@ -14,7 +31,9 @@ enyo.dispatcher = {
 	connect: function() {
 		var d = enyo.dispatcher;
 		for (var i=0, e; e=d.events[i]; i++) {
-			document.addEventListener(e, enyo.dispatch, false);
+			var options = false;
+			if (enyo.passiveSupported()) options = { passive:false }
+			document.addEventListener(c, enyo.dispatch, options);
 		}
 		for (i=0, e; e=d.windowEvents[i]; i++) {
 			window.addEventListener(e, enyo.dispatch, false);

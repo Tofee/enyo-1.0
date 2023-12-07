@@ -42,9 +42,11 @@ enyo.requiresWindow(function() {
 			this._send("click", e.changedTouches[0]); 
 		},
 		connect: function() {
-			document.addEventListener("touchstart", enyo.dispatch, {passive:false});
-			document.addEventListener("touchmove", enyo.dispatch, {passive:false});
-			document.addEventListener("touchend", enyo.dispatch, {passive:false});
+			var options = false;
+			if (enyo.passiveSupported()) options = { passive:false }
+			document.addEventListener("touchstart", enyo.dispatch, options);
+			document.addEventListener("touchmove", enyo.dispatch, options);
+			document.addEventListener("touchend", enyo.dispatch, options);
 		}
 	};
 	//
