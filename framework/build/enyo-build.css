@@ -1,7 +1,3 @@
-/* Enyo v1.0 | Copyright 2011-2012 Hewlett-Packard Development Company, L.P. | enyojs.com | enyojs.com/license */
-/* Updated for upgrade to QT 5.8 with Chromium 53 based rendering engine */
-/* We need to explicitly define 'border-style: solid' since Chromium 51 in order for the border-image to keep working correctly and to be compliant with standard */
-/* See https://www.w3.org/TR/2005/WD-css3-background-20050216/#the-border-image and https://groups.google.com/a/chromium.org/forum/#!searchin/blink-dev/border-image/blink-dev/J7rvFkcn8TU/OtIcXTDDAQAJ */
 /* dom/dom.css */
 
 /*
@@ -412,9 +408,9 @@ html, body, input, button {
 	min-width: 14px;
 	min-height: 20px;
 	-webkit-border-image: url(palm/themes/Onyx/images/button-up.png) 4 4 4 4 stretch stretch;
-	border-style: solid;
 	border-width: 4px;
 	border-radius: 5px;
+	border-style: solid;
 	margin: 3px;
 	color: #292929;
 	background-color: rgba(255,255,255,0.8);
@@ -917,6 +913,7 @@ html, body, input, button {
 	.enyo-grouped-toolbutton-dark.enyo-last.enyo-button-depressed,
 	.enyo-grouped-toolbutton-dark.enyo-last.enyo-button-down {
 		-webkit-border-image: url(palm/themes/Onyx/images/radiobutton.png) 481 16 75 16;
+		border-style: solid;
 	}
 
 	.enyo-grouped-toolbutton-dark.enyo-single {
@@ -1087,7 +1084,6 @@ html, body, input, button {
 	padding: 4px 8px;
 	border-style: none;
 	-webkit-border-image: url(palm/themes/Onyx/images/button-toolbar.png) 4 4 4 4 stretch stretch;
-	border-style: solid;
 }
 
 
@@ -1156,8 +1152,8 @@ html, body, input, button {
 	top: 0px;
 	-webkit-box-sizing: border-box;
 	border-width: 24px;
-	-webkit-border-image: url(palm/themes/Onyx/images/popup.png) 24 24 24 24 stretch stretch;
 	border-style: solid;
+	-webkit-border-image: url(palm/themes/Onyx/images/popup.png) 24 24 24 24 stretch stretch;
 }
 
 @media (-webkit-min-device-pixel-ratio:1.5) {
@@ -1180,8 +1176,8 @@ html, body, input, button {
 .enyo-popup.enyo-popup-menu {
 	min-width: inherit;
 	border-width: 20px;
-	-webkit-border-image: url(palm/themes/Onyx/images/menu-background.png) 20 20 20 20 stretch stretch;
 	border-style: solid;
+	-webkit-border-image: url(palm/themes/Onyx/images/menu-background.png) 20 20 20 20 stretch stretch;
 	
 	/* FIXME: consider when works more reliably */
 	/*
@@ -1371,8 +1367,8 @@ html, body, input, button {
 	position: fixed;
 	font-size: 18px;
 	border-width: 12px 24px 20px 24px;
-	-webkit-border-image: url(palm/themes/Onyx/images/appmenu.png) 12 24 20 24 stretch stretch;
 	border-style: solid;
+	-webkit-border-image: url(palm/themes/Onyx/images/appmenu.png) 12 24 20 24 stretch stretch;
 	color: white;
 	top: 0px;
 	left: -10px;
@@ -1409,9 +1405,9 @@ html, body, input, button {
 
 .enyo-appmenu-item.enyo-item {
 	-webkit-border-image: url(palm/themes/Onyx/images/appmenu-divider.png) 0 0 2 0 stretch;
-	border-style: solid;
 	color: white;
 	border-bottom: 2px;
+	border-style: solid;
 	padding: 10px 7px 10px 5px;
 	font-size: 18px;
 }
@@ -1434,6 +1430,7 @@ html, body, input, button {
 	
 	.enyo-appmenu-item.enyo-held {
 		background-image: url(palm/themes/Onyx/images-1.5/appmenu-highlight.png);
+		border-style: solid;
 	}
 	
 }
@@ -1832,8 +1829,8 @@ html, body, input, button {
 
 .enyo-header.enyo-header-dark {
 	-webkit-border-image: url(palm/themes/Onyx/images/toolbar.png) 2 4 repeat stretch;
-	border-style: solid;
 	border-width: 2px 0;
+	border-style: solid;
 	background-color: #343434;
 	color: #fff;
 }
@@ -1908,8 +1905,8 @@ html, body, input, button {
 .enyo-confirmprompt-scrim {
 	-webkit-border-image: url(palm/themes/Onyx/images/confirmprompt-background.png) 20 0 repeat;
 	-webkit-box-sizing: border-box;
-	border-style: solid;
 	border-width: 20px 0px;
+	border-style: solid;
 	background-color: #fff;
 }
 
@@ -2069,8 +2066,8 @@ html, body, input, button {
 
 .enyo-picker-button {
 	-webkit-border-image: url(palm/themes/Onyx/images/picker-pill.png) 10;
-	border-style: solid;
 	border-width: 10px;
+	border-style: solid;
 	font-size: 16px;
 	line-height: 32px;
 }
@@ -2194,6 +2191,7 @@ html, body, input, button {
 .enyo-group-label.enyo-group-fit {
 	margin-bottom: -21px;
 }
+
 
 /* palm/themes/Onyx/css/RoundedInput.css */
 
@@ -2419,7 +2417,7 @@ FIXME: we almost always want some padding on a enyo-item, except when it's surro
     width: 128px;
     height: 128px;
     -webkit-box-sizing: border-box;
-    background-image: url(palm/themes/Onyx/images/spinner-large.png); */
+    background-image: url(palm/themes/Onyx/images/spinner-large.png);
 }
 
 @media (-webkit-min-device-pixel-ratio:1.5) {
