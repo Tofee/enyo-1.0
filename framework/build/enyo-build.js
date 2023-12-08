@@ -1,4 +1,3 @@
-/* Enyo v1.0 | Copyright 2011-2012 Hewlett-Packard Development Company, L.P. | enyojs.com | enyojs.com/license */
 // dependency-loader.js
 
 (function() {
@@ -1493,16 +1492,12 @@ type: "text/javascript",
 src: a
 }));
 }, enyo.getCookie = function(a) {
-if(typeof localStorage != "undefined") {
-return localStorage.getItem(a);   
-} else {
+if (typeof localStorage != "undefined") localStorage.getItem(a); else {
 var b = document.cookie.match(new RegExp("(?:^|; )" + a + "=([^;]*)"));
 return b ? decodeURIComponent(b[1]) : undefined;
 }
 }, enyo.setCookie = function(a, b, c) {
-if(typeof localStorage != "undefined") {
-        localStorage.setItem(a, b);
-} else {
+if (typeof localStorage != "undefined") localStorage.setItem(a, b); else {
 var d = a + "=" + encodeURIComponent(b), e = c || {}, f = e.expires;
 if (typeof f == "number") {
 var g = new Date;
@@ -1881,23 +1876,21 @@ return this._animation && this._animation.animating;
 });
 
 // dom/Dispatcher.js
-enyo.passiveSupported = function() {
- passiveSupported = false;
- try {
-  var options = {
-  get passive() {
-   passiveSupported = true;
-   return false;
-  },
- };
- window.addEventListener("test", null, options);
- window.removeEventListener("test", null, options);
- } catch (err) {
-  passiveSupported = false;
- }
- return passiveSupported;
+
+enyo.$ = {}, enyo.passiveSupported = function() {
+passiveSupported = !1;
+try {
+var a = {
+(get passive() {
+return passiveSupported = !0, !1;
+})
 };
-enyo.$ = {}, enyo.dispatcher = {
+window.addEventListener("test", null, a), window.removeEventListener("test", null, a);
+} catch (b) {
+passiveSupported = !1;
+}
+return passiveSupported;
+}, enyo.dispatcher = {
 handlerName: "dispatchDomEvent",
 captureHandlerName: "captureDomEvent",
 mouseOverOutEvents: {
@@ -1908,12 +1901,13 @@ events: [ "mousedown", "mouseup", "mouseover", "mouseout", "mousemove", "mousewh
 windowEvents: [ "resize", "load", "unload" ],
 connect: function() {
 var a = enyo.dispatcher;
-for (var b = 0, c; c = a.events[b]; b++) {
- var options = !1;
- if (enyo.passiveSupported()) options = { passive:false }
-   document.addEventListener(c, enyo.dispatch, options);
+for (var b = 0, d; d = a.events[b]; b++) {
+var e = !1;
+enyo.passiveSupported() && (e = {
+passive: !1
+}), document.addEventListener(c, enyo.dispatch, e);
 }
-for (b = 0, c; c = a.windowEvents[b]; b++) window.addEventListener(c, enyo.dispatch, !1);
+for (b = 0, d; d = a.windowEvents[b]; b++) window.addEventListener(d, enyo.dispatch, !1);
 },
 findDispatchTarget: function(a) {
 var b, c = a;
@@ -2707,7 +2701,7 @@ return this.ctor.publishedList = a;
 // compatibility/webkitGesture.js
 
 enyo.requiresWindow(function() {
-(enyo.dispatcher.features.push(function(a) {
+enyo.dispatcher.features.push(function(a) {
 enyo.iphoneGesture[a.type] && enyo.iphoneGesture[a.type](a);
 }), enyo.iphoneGesture = {
 _send: function(a, b) {
@@ -2727,13 +2721,12 @@ touchend: function(a) {
 this._send("mouseup", a.changedTouches[0]), this._send("click", a.changedTouches[0]);
 },
 connect: function() {
-var options;
-if (enyo.passiveSupported()) options = {passive:false};
-document.addEventListener("touchstart", enyo.dispatch, options);
-document.addEventListener("touchmove", enyo.dispatch, options);
-document.addEventListener("touchend", enyo.dispatch, options);
+var a = !1;
+enyo.passiveSupported() && (a = {
+passive: !1
+}), document.addEventListener("touchstart", enyo.dispatch, a), document.addEventListener("touchmove", enyo.dispatch, a), document.addEventListener("touchend", enyo.dispatch, a);
 }
-}, enyo.iphoneGesture.connect());
+}, enyo.iphoneGesture.connect();
 });
 
 // compatibility/webosGesture.js
@@ -2751,9 +2744,10 @@ target: enyo.webosGesture.lastDownTarget
 }, b);
 enyo.dispatch(c);
 }, Mojo.screenOrientationChanged = function() {}, enyo.requiresWindow(function() {
-var options;
-if (enyo.passiveSupported()) var options = {passive:false}
-document.addEventListener("touchstart", enyo.dispatch, options), document.addEventListener("touchmove", enyo.dispatch, options), document.addEventListener("touchend", enyo.dispatch, options);
+var a = !1;
+enyo.passiveSupported() && (a = {
+passive: !1
+}), document.addEventListener("touchstart", enyo.dispatch, a), document.addEventListener("touchmove", enyo.dispatch, a), document.addEventListener("touchend", enyo.dispatch, a);
 })), typeof webosEvent == "undefined" && (webosEvent = {
 event: enyo.nop,
 start: enyo.nop,
@@ -5872,8 +5866,7 @@ return enyo.fetchConfigFile("$enyo/../framework_config.json");
 }, enyo.fetchDeviceInfo = function() {
 return window.PalmSystem ? JSON.parse(PalmSystem.deviceInfo) : undefined;
 }, enyo.requiresWindow(function() {
-if ((window.PalmSystem) && (window.PalmSystem.getResource) && (!window.palmGetResource)) {window.palmGetResource = PalmSystem.getResource;}
-window.addEventListener("load", enyo.ready, !1), window.addEventListener("resize", enyo.sendOrientationChange, !1), Mojo = window.Mojo || {}, Mojo.lowMemoryNotification = function(a) {
+window.addEventListener("load", enyo.ready, !1), window.addEventListener("resize", enyo.sendOrientationChange, !1), Mojo = window.Mojo || {}, window.PalmSystem && window.PalmSystem.getResource && !window.palmGetResource && (window.palmGetResource = PalmSystem.getResource), Mojo.lowMemoryNotification = function(a) {
 enyo.dispatch({
 type: "lowMemory",
 state: a.state
@@ -6252,8 +6245,8 @@ return a.setTimeout || (a = window), a;
 },
 getWindows: function() {
 var a = this.getRootWindow();
-if (typeof(a) === "undefined" || typeof(a.enyo) === "undefined" || typeof(a.enyo.windows) === "undefined" || typeof(a.enyo.windows.manager) === "undefined") return [];
-b = a.enyo.windows.manager, c = b._windowList, d = {};
+if (typeof a == "undefined" || typeof a.enyo == "undefined" || typeof a.enyo.windows == "undefined" || typeof a.enyo.windows.manager == "undefined") return [];
+var b = a.enyo.windows.manager, c = b._windowList, d = {};
 for (var e in c) this.isValidWindow(c[e]) && (d[e] = c[e]);
 return b._windowList = d, d;
 },
@@ -7611,7 +7604,7 @@ this.$.view.callBrowserAdapter(a, b);
 webviewClick: function(a, b, c) {
 c && (c.element == "SELECT" ? this._selectRect = c.bounds : this._selectRect = null, this.doClick(b, c));
 }
-}), window.PalmSystem || (enyo.WebView = enyo.Iframe);
+}), !window.PalmSystem && !enyo.args.haveBrowserAdapter && (enyo.WebView = enyo.Iframe);
 
 // palm/controls/image/sizeable.js
 
