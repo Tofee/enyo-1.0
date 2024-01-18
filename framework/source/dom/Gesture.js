@@ -357,8 +357,8 @@ enyo.requiresWindow(function() {
 		enyo.gesture.focusAtPoint = function(e) {
 			enyo.gesture._isFocusing = true;
 			// note: these events are asynchronous, but apparently can be called in order.
-			PalmSystem.simulateMouseClick(e.pageX, e.pageY, true);
-			PalmSystem.simulateMouseClick(e.pageX, e.pageY, false);
+			PalmSystem.simulateMouseClick(Math.round(e.pageX), Math.round(e.pageY), true);
+			PalmSystem.simulateMouseClick(Math.round(e.pageX), Math.round(e.pageY), false);
 		}
 
 		enyo.gesture.requiresDomMousedown = function(e) {
